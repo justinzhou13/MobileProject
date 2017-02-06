@@ -9,14 +9,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class timeActivity extends AppCompatActivity {
     private static User mUser;
     private Spinner mTimeslot;
     private CheckBox mDriving;
     private Button mContinue;
-    private Firebase ref;
+    private DatabaseReference ref;
     private static final String FIREBASE_URL = "https://ridetj-e12cb.firebaseio.com/";
 
     public static Intent newIntent(Context packageContext,User user) {
@@ -30,8 +31,7 @@ public class timeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
 
-        Firebase.setAndroidContext(this);
-        ref = new Firebase(FIREBASE_URL);
+        ref = FirebaseDatabase.getInstance().getReference();
 
 
         mTimeslot = (Spinner)findViewById(R.id.regionSPIN);

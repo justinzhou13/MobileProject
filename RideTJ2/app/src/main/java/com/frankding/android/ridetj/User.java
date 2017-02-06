@@ -1,11 +1,11 @@
 package com.frankding.android.ridetj;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Created by frankding on 1/30/17.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 class User {
 
     private String Name;

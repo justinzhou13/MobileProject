@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.frankding.android.ridetj.R.id.editText;
-
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText fullNameET;

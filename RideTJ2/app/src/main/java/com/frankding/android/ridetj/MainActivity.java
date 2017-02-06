@@ -2,6 +2,7 @@ package com.frankding.android.ridetj;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+//import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> mSignInfo;
     private static String mUsername;
     private static String mPassword;
-    private Firebase ref;
+    private DatabaseReference ref;
     private static final String FIREBASE_URL = "https://ridetj-e12cb.firebaseio.com/";
     private static final int REQUEST_CODE_USER = 1;
     private DataSnapshot mData;
@@ -50,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Firebase.setAndroidContext(this);
-        ref = new Firebase(FIREBASE_URL);
+        ref = FirebaseDatabase.getInstance().getReference();
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onCancelled(FirebaseError databaseError){
+            public void onCancelled(DatabaseError databaseError){
                 System.out.println("The read failed: "+databaseError.getCode());
             }
 

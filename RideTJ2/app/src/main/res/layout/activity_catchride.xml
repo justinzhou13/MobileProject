@@ -4,23 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.frankding.android.ridetj.catchrideActivity"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff33b5e5">
 
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
     <TextView
         android:text="Catch a Ride"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:gravity="center"
-        android:textSize="24dp"/>
+        android:textSize="30dp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
     <ListView
         android:id="@+id/rideListLV"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content" >
     </ListView>
 

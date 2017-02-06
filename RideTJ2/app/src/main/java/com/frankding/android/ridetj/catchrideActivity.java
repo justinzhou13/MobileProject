@@ -7,13 +7,22 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class catchrideActivity extends AppCompatActivity {
 
     private static User mUser;
-    private Firebase ref;
-    private static final String FIREBASE_URL = "https://ridetj-e12cb.firebaseio.com/";
+    private DatabaseReference ref;
+    private ListView mListView;
+    private DataListener listener;
 
     public static Intent newIntent(Context packageContext, User user) {
         Intent i = new Intent(packageContext, catchrideActivity.class);
@@ -26,16 +35,54 @@ public class catchrideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catchride);
 
-        Firebase.setAndroidContext(this);
-        ref = new Firebase(FIREBASE_URL);
+        configListView();
+    }
 
-        String userInfo = ref.child(mUser.getUsername()).toString();
+    private void configListView() {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference();
 
-        String[] rideArray = {userInfo};
+        mListView = (ListView)(findViewById(R.id.rideListLV));
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_catchride, rideArray);
+        listener = new DataListener(this, mListView);
 
-        ListView listView = (ListView) findViewById(R.id.rideListLV);
-        listView.setAdapter(adapter);
+        userRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Get map of users in dataSnapshot
+                        List<String>  rideArray = new ArrayList<>();
+                        rideArray = populateArray((Map<String,Object>) dataSnapshot.getValue());
+                        listener.onSuccess(rideArray);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle error
+                    }
+                });
+    }
+
+    private ArrayList<String> populateArray(Map<String,Object> users){
+        ArrayList<String> rideList = new ArrayList<>();
+
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : users.entrySet()){
+
+            //Get user map
+            Map singleUser = (Map) entry.getValue();
+            //Get phone field and append to list
+            String username = (String)(singleUser.get("username"));
+            String region = (String)(singleUser.get("region"));
+            String driving;
+            if(singleUser.get("driving").equals("true"))
+                driving = "Driving";
+            else
+                driving = "Passenger";
+            String phone = (String)(singleUser.get("phonenumber"));
+
+            rideList.add(username);
+        }
+
+        return rideList;
     }
 }
