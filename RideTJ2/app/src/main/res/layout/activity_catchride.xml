@@ -27,7 +27,7 @@
         android:layout_height="20dp"/>
     <ListView
         android:id="@+id/rideListLV"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content" >
     </ListView>
 

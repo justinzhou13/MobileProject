@@ -62,26 +62,70 @@ public class catchrideActivity extends AppCompatActivity {
                 });
     }
 
-    private ArrayList<String> populateArray(Map<String,Object> users){
+    private ArrayList<String> populateArray(Map<String,Object> users) {
         ArrayList<String> rideList = new ArrayList<>();
 
-        //iterate through each user, ignoring their UID
-        for (Map.Entry<String, Object> entry : users.entrySet()){
+        String requestedRegion = mUser.getRegion();
+        String requestedTime = mUser.getTime();
 
-            //Get user map
+        ArrayList<Map> userMapList = new ArrayList<>();
+
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : users.entrySet()) {
             Map singleUser = (Map) entry.getValue();
-            //Get phone field and append to list
-            String username = (String)(singleUser.get("username"));
-            String region = (String)(singleUser.get("region"));
+
+            /*if(!singleUser.equals(mUser))
+                userMapList.add(singleUser);*/
+            if(!singleUser.get("username").equals(mUser.getUsername())) {
+                String name = (String) (singleUser.get("name"));
+                String region = (String) (singleUser.get("region"));
+                String time = (String) (singleUser.get("time"));
+                String driving;
+                if (singleUser.get("driving").equals("true"))
+                    driving = "Driving";
+                else
+                    driving = "Passenger";
+                String phone = (String) (singleUser.get("phonenumber"));
+
+                String rideOption = name + "\n" + region + "\n" + driving + "\n" + phone;
+
+                rideList.add(rideOption);
+            }
+        }
+
+        /*
+        ArrayList<Map> orderedUserMaps = new ArrayList<>();
+        //Users going to the same destination at the same time
+        for (Map userMap : userMapList) {
+            String region = (String)(userMap.get("region"));
+            String time = (String)(userMap.get("time"));
+
+            if(region.equals(requestedRegion) && time.equals(requestedTime)) {
+                orderedUserMaps.add(userMap);
+                userMapList.remove(userMap);
+            }
+        }
+        //everyone else
+        for (Map userMap : userMapList) {
+            orderedUserMaps.add(userMap);
+        }
+
+        //populating entries for ListView
+        for (Map userMap : orderedUserMaps){
+            String name = (String)(userMap.get("name"));
+            String region = (String)(userMap.get("region"));
+            String time = (String)(userMap.get("time"));
             String driving;
-            if(singleUser.get("driving").equals("true"))
+            if(userMap.get("driving").equals("true"))
                 driving = "Driving";
             else
                 driving = "Passenger";
-            String phone = (String)(singleUser.get("phonenumber"));
+            String phone = (String)(userMap.get("phonenumber"));
 
-            rideList.add(username);
-        }
+            String rideOption = name + "\n" + region + "\n" + driving + "\n" + phone;
+
+            rideList.add(rideOption);
+        }*/
 
         return rideList;
     }

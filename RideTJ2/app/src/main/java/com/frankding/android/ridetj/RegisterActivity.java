@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText fullNameET;
-    private EditText emailET;
     private EditText phoneET;
+    private EditText usernameET;
     private Spinner regionSPIN;
     private EditText passwordET;
     private Button mSubmit;
@@ -38,25 +38,27 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         fullNameET = (EditText)(findViewById(R.id.fullNameET));
-        emailET = (EditText)(findViewById(R.id.emailET));
         phoneET = (EditText)(findViewById(R.id.phoneET));
-        regionSPIN = (Spinner)(findViewById(R.id.regionSPIN));
+        usernameET = (EditText)(findViewById(R.id.usernameET));
         passwordET = (EditText)(findViewById(R.id.passwordET));
+        regionSPIN = (Spinner)(findViewById(R.id.regionSPIN));
         mSubmit = (Button)findViewById(R.id.registerBTN);
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mUserInfo = new ArrayList<String>();
                 String fullName = fullNameET.getText().toString();
-                String email = emailET.getText().toString();
-                String region = regionSPIN.getSelectedItem().toString();
-                String password = passwordET.getText().toString();
                 String phone = phoneET.getText().toString();
+                String username = usernameET.getText().toString();
+                String password = passwordET.getText().toString();
+                String region = regionSPIN.getSelectedItem().toString();
+
                 mUserInfo.add(fullName);
-                mUserInfo.add(region);
-                mUserInfo.add(password);
-                mUserInfo.add(email);
                 mUserInfo.add(phone);
+                mUserInfo.add(username);
+                mUserInfo.add(password);
+                mUserInfo.add(region);
+
                 setUserResult(mUserInfo);
                 Toast.makeText(RegisterActivity.this, "Registration Complete!", Toast.LENGTH_SHORT).show();
                 finish();

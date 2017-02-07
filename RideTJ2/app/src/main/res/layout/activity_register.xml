@@ -41,7 +41,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/emailET"
+        android:id="@+id/usernameET"
         android:layout_gravity="center_horizontal"
         android:hint="Username (letters and numbers)"
         android:padding="10dp"

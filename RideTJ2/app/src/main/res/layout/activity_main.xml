@@ -13,25 +13,25 @@
 
     <EditText
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
         android:ems="10"
         android:layout_marginBottom="227dp"
-        android:id="@+id/editText"
+        android:id="@+id/usernameLoginET"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:hint="Username"
         android:layout_width="300dp"
         android:padding="10dp"
-        android:background="#ffffff"/>
+        android:background="#ffffff"
+        android:maxLines="1"/>
 
     <EditText
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:layout_marginTop="59dp"
-        android:id="@+id/editText2"
-        android:layout_alignTop="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:id="@+id/passwordLoginET"
+        android:layout_alignTop="@+id/usernameLoginET"
+        android:layout_alignStart="@+id/usernameLoginET"
         android:hint="Password"
         android:padding="10dp"
         android:layout_width="300dp"
@@ -41,7 +41,7 @@
         android:text="Log In"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/passwordLoginET"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:id="@+id/button10"
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ridetj_logo_text"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/usernameLoginET"
         android:layout_centerHorizontal="true"
         android:padding="30dp"/>
 
